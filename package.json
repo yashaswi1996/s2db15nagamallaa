@@ -10,12 +10,13 @@
     "debug": "^4.3.4",
     "express": "^4.17.3",
     "http-errors": "^2.0.0",
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.2.11",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
   },
   "description": "https://s2wb15nagamalla.herokuapp.com/",
   "main": "app.js",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yashaswi1996/s2wb15nagamalla.git"
@@ -25,5 +26,6 @@
   "bugs": {
     "url": "https://github.com/yashaswi1996/s2wb15nagamalla/issues"
   },
-  "homepage": "https://github.com/yashaswi1996/s2wb15nagamalla#readme"
+  "homepage": "https://github.com/yashaswi1996/s2wb15nagamalla#readme",
+  "devDependencies": {}
 }

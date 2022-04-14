@@ -4,13 +4,56 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const connectionString = process.env.MONGO_CON
+mongoose = require(connectionString);
+mongoose.connect(connectionString,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var OlivesRouter = require('./routes/Olives');
 var addmodsRouter = require('./routes/addmods');
 var selectorRouter = require('./routes/selector');
-
+var Olive = require("./models/Olives");
 var app = express();
+
+async function recreateDB() {
+  // Delete everything
+  await Olive.deleteMany();
+  let instance1 = new
+    Olive({ Olives_color: "Rose", Olives_quantity: "Small", Olives_cost: 17.9 });
+  instance1.save(function (err, doc) {
+    if (err) return console.error(err);
+    console.log("First object saved")
+  });
+
+  // We can seed the collection if needed onserver start
+
+  let instance2 = new
+    Olive({
+      Olives_color:  "Hibiscus", Olives_quantity: "Large",
+      Olives_cost: 13.9
+    });
+  instance2.save(function (err, doc) {
+    if (err) return console.error(err);
+    console.log("Second object saved")
+  });
+
+  let instance3 = new
+    Olive({
+      Olives_color: "Sunflower", Olives_quantity:"Very Large",
+      Olives_cost:20.0
+    });
+  instance3.save(function (err, doc) {
+    if (err) return console.error(err);
+    console.log("Third object saved")
+  });
+}
+let reseed = true;
+if (reseed) { recreateDB(); }
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -43,5 +86,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+//Get the default connection 
+var db = mongoose.connection; 
+ 
+//Bind connection to error event  
+db.on('error', console.error.bind(console, 'MongoDB connection error:')); 
+db.once("open", function(){ 
+  console.log("Connection to DB succeeded")}); 
 
 module.exports = app;
