@@ -5,4 +5,4 @@ const oliveSchema = mongoose.Schema({
     Olives_cost: Number 
 }) 
  
-module.exports = mongoose.model("olive",oliveSchema) 
+module.exports = mongoose.model("Olives", oliveSchema)
