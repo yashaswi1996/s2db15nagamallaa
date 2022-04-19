@@ -48,6 +48,16 @@ exports.Olives_delete = function (req, res) {
     res.send('NOT IMPLEMENTED: Olives delete DELETE ' + req.params.id);
 };
 
+// for a specific Olives. 
+exports.Olives_detail = function(req, res) { 
+    res.send('NOT IMPLEMENTED: Olives detail: ' + req.params.id); 
+}; 
+ 
+// Handle Olives create on POST. 
+exports.Olives_create_post = function(req, res) { 
+    res.send('NOT IMPLEMENTED: Olives create POST'); 
+}; 
+
 
 // Handle Olives update form on PUT.
 // Handle Olives update form on PUT. 
@@ -100,6 +110,20 @@ exports.Olives_view_one_Page = async function (req, res) {
       res.send(`{'error': '${err}'}`);
     }
   };
+
+  // Handle a delete one view with id from query 
+exports.Olives_delete_Page = async function(req, res) { 
+    console.log("Delete view for id "  + req.query.id) 
+    try{
+        result = await Olives.findById(req.query.id) 
+        res.render('Olivesdelete', { title: 'Olives Delete', toShow: 
+result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    }
+};
 
   exports.Olives_delete = async function (req, res) {
     console.log("delete " + req.params.id);

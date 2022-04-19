@@ -17,12 +17,16 @@ router.put('/Olives/:id', Olives_controller.Olives_update_put);
 // GET request for one Handbag.
 router.get('/Olives/:id', Olives_controller.Olives_detail);
 // GET request for list of all Handbag.
-router.get('/Olives', Olives_controller.Olives_list);
+router.get('/Olives', Olives_controller.Olives_view_all_Page); 
 
 router.get('/detail', Olives_controller.Olives_view_one_Page);
 
 router.get('/create', Olives_controller.Olives_create_Page); 
 
 router.get('/update',Olives_controller.Olives_update_Page);
+
+router.get('/delete', Olives_controller.Olives_delete_Page);
+
+router.delete('/Olives/:id',Olives_controller.Olives_delete);
 
 module.exports = router;
