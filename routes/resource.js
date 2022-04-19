@@ -11,10 +11,14 @@ router.get('/', api_controller.api);
 router.post('/Olives', Olives_controller.Olives_create_post);
 // DELETE request to delete Handbag.
 router.delete('/Olives/:id', Olives_controller.Olives_delete);
+
 // PUT request to update Handbag.
 router.put('/Olives/:id', Olives_controller.Olives_update_put);
 // GET request for one Handbag.
 router.get('/Olives/:id', Olives_controller.Olives_detail);
 // GET request for list of all Handbag.
 router.get('/Olives', Olives_controller.Olives_list);
+
+router.get('/detail', Olives_controller.Olives_view_one_Page);
+
 module.exports = router;

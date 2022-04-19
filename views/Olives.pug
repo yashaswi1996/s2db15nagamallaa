@@ -1,34 +1,26 @@
 extends layout
 
 block content
-
   h1= title
-  -
-    let results = [
+  - let Olives  = results;
+  div(class="container-fluid mt-3 mystyle")
+    - let create = `dispatch(\"/Olives/create\")`
+    button.btn(class="btn-secondary ml-1", onClick=create) Create New Olives
+    div(class="row m-1 paddingcustom")
+      each Olives,index in Olives
+        - let destination = `dispatch(\"/Olives/update?id=${Olives._id}\")` 
+        - let detail = `dispatch(\"/Olives/detail/?id=${Olives._id}")`
+        - let deleteItem = `dispatch(\"/Olives/delete/?id=${Olives._id}")`
+        div(class="col-sm-5 values") #{Olives.Olives_color} - #{Olives_quantity} - #{Olives_cost}
+          button.btn( class="btn-primary buttonCustom", onclick= destination) Update
+          button.btn( class="btn-success buttonCustom", onclick= detail) Details
+          button.btn( class="btn-danger buttonCustom", onclick= deleteItem) Delete
+    
+    script.
+      function buy(itemNo)
       {
-        "Olives_color": "Blue",
-        "Olives_quantity": "2lb",
-        "Olives_cost": 7
-      },
-      {
-        "Olives_color": "Green",
-        "Olives_quantity": "4lb",
-        "Olives_cost": 14
-      },
-      {
-        "Olives_color": "Black",
-        "Olives_quantity": "6lb",
-        "Olives_cost": 21
-      },                   
-    ]
-  div(class= "container-fluid")
-    div(class = "row")
-      each item,index in results
-        div(class= "col-sm-2" , onclick=`buy(${index})`) #{item.Olives_color}
-        div(class= "col-sm-2", onclick=`buy(${index})`) #{item.Olives_quantity}
-        div(class= "col-sm-2", onclick=`buy(${index})`) #{item.Olives_cost}
-
-  script.
-    function buy(itemNum){
-      alert(`You purchased item ${itemNum+1}`)
-    }
+        alert(`You purchased Item ${itemNo+1}`)
+      }
+      function dispatch(path){ 
+        window.location.href=path 
+      }

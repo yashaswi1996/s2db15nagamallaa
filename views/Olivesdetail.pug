@@ -1,0 +1,28 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let OlivesID = toShow._id
+    - let Olives_color = toShow.Olives_color
+    - let Olives_quantity = toShow.Olives_quantity
+    - let Olives_cost = toShow.Olives_cost
+
+    div 
+    div.row 
+      div(class='costumeAttr mr-3') Olives ID is: 
+      div #{Olivesid} 
+    div.row 
+      div(class='costumeAttr mr-3') Olives Type is: 
+      div #{Olives_color} 
+    div.row 
+      div(class='costumeAttr mr-3') Olives Size is: 
+      div #{Olives_quantity} 
+    div.row 
+      div(class='costumeAttr mr-3') Olives Olives_cost is: 
+      div #{Olives_cost}
+
+  
