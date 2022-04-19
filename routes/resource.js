@@ -21,4 +21,8 @@ router.get('/Olives', Olives_controller.Olives_list);
 
 router.get('/detail', Olives_controller.Olives_view_one_Page);
 
+router.get('/create', Olives_controller.Olives_create_Page); 
+
+router.get('/update',Olives_controller.Olives_update_Page);
+
 module.exports = router;

@@ -4,7 +4,7 @@ var Olives = require('../models/Olives');
 exports.Olives_list = async function (req, res) {
     // res.send('NOT IMPLEMENTED: Olives list');
     try {
-        theOlivess = await Olives.find();
+        theOlives = await Olives.find();
         res.send(theOlives);
     }
     catch (err) {
@@ -12,29 +12,17 @@ exports.Olives_list = async function (req, res) {
         res.send(`{"error": ${err}}`);
     }
 };
-
-
-// for a specific Olives. 
-exports.Olives_detail = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Olives detail: ' + req.params.id); 
-}; 
- 
-// Handle Olives create on POST. 
-exports.Olives_create_post = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Olives create POST'); 
-};    
-
-// Handle Olives delete form on DELETE.
-exports.Olives_delete = function (req, res) {
-    res.send('NOT IMPLEMENTED: Olives delete DELETE ' + req.params.id);
+// for a specific Olives.
+exports.Olives_detail = async function (req, res) {
+    console.log("detail" + req.params.id)
+    try {
+        result = await Olives.findById(req.params.id)
+        res.send(result)
+    } catch (error) {
+        res.status(500)
+        res.send(`{"error": document for id ${req.params.id} not found`);
+    }
 };
-
-// Handle Olives update form on PUT. 
-exports.Olives_update_put = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Olives update PUT' + req.params.id); 
-};
-
-
 // Handle Olives create on POST.
 exports.Olives_create_post = async function (req, res) {
     console.log(req.body)
@@ -55,86 +43,51 @@ exports.Olives_create_post = async function (req, res) {
         res.send(`{"error": ${err}}`);
     }
 };
-
-
-
-// for a specific Olives.
-exports.Olives_detail = async function (req, res) {
-    console.log("detail" + req.params.id)
-    try {
-        result = await Olives.findById(req.params.id)
-        res.send(result)
-    } catch (error) {
-        res.status(500)
-        res.send(`{"error": document for id ${req.params.id} not found`);
-    }
+// Handle Olives delete form on DELETE.
+exports.Olives_delete = function (req, res) {
+    res.send('NOT IMPLEMENTED: Olives delete DELETE ' + req.params.id);
 };
-
-
 
 
 // Handle Olives update form on PUT.
-exports.Olives_update_put = async function (req, res) {
-    //res.send('NOT IMPLEMENTED: Olives update PUT' + req.params.id);
-    console.log(`update on id ${req.params.id} with body
-${JSON.stringify(req.body)}`)
-    try {
-        let toUpdate = await Olives.findById(req.params.id)
-        // Do updates of properties
-        if (req.body.Olives_color)
-            toUpdate.Olives_color = req.body.Olives_color;
-        if (req.body.Olives_quantity) toUpdate.cost = req.body.Olives_quantity;
-        if (req.body.size) toUpdate.Olives_cost = req.body.Olives_cost;
-        let result = await toUpdate.save();
-        console.log("Sucess " + result)
-        res.send(result)
-    } catch (err) {
-        res.status(500)
-        res.send(`{"error": ${err}: Update for id ${req.params.id}
-failed`);
-    }
+// Handle Olives update form on PUT. 
+exports.Olives_update_put = function(req, res) { 
+    res.send('NOT IMPLEMENTED: Olives update PUT' + req.params.id); 
 };
 
-exports.Olives_create_Page =  function(req, res) { 
-    console.log("create view") 
-    try{ 
-        res.render('Olivescreate', { title: 'Olives Create'}); 
-    } 
-    catch(err){ 
+
+exports.Olives_update_put = async function(req, res) { 
+    console.log(`update on id ${req.params.id} with body 
+    ${JSON.stringify(req.body)}`) 
+    try { 
+        let toUpdate = await Olives.findById( req.params.id) 
+        // Do updates of properties 
+        if(req.body.Olives_color)  
+               toUpdate.Olives_color = req.body.Olives_color; 
+        if(req.body.Olives_quantity) toUpdate.Olives_quantity = req.body.Olives_quantity; 
+        if(req.body.Olives_cost) toUpdate.Olives_cost = req.body.Olives_cost; 
+        let result = await toUpdate.save(); 
+        console.log("Sucess " + result) 
+        res.send(result) 
+    } catch (err) { 
         res.status(500) 
-        res.send(`{'error': '${err}'}`); 
-    } 
-};
-
-// Handle building the view for updating a Olives. 
-// query provides the id 
-exports.Olives_update_Page =  async function(req, res) { 
-    console.log("update view for item "+req.query.id) 
-    try{ 
-        let result = await Olives.findById(req.query.id) 
-        console.log(result)
-        res.render('Olivesupdate', { title: 'Olives Update', toShow: result }); 
-    }
-    catch(err){
-        res.status(500)
-        res.send(`{'error': '${err}'}`); 
+        res.send(`{"error": ${err}: Update for id ${req.params.id} 
+failed`); 
     } 
 }; 
 
-// Handle a delete one view with id from query 
-exports.Olives_delete_Page = async function(req, res) { 
-    console.log("Delete view for id "  + req.query.id) 
-    try{
-        result = await Olives.findById(req.query.id) 
-        res.render('Olivesdelete', { title: 'Olives Delete', toShow: 
-result }); 
-    } 
-    catch(err){ 
-        res.status(500) 
-        res.send(`{'error': '${err}'}`); 
+// VIEWS
+// Handle a show all view
+exports.Olives_view_all_Page = async function (req, res) {
+    try {
+        theOlivess = await Olives.find();
+        res.render('Olives', { title: 'Olives Search Results', results: theOlivess });
+    }
+    catch (err) {
+        res.status(500);
+        res.send(`{"error": ${err}}`);
     }
 };
-
 
 exports.Olives_view_one_Page = async function (req, res) {
     console.log("single view for id " + req.query.id);
@@ -159,3 +112,29 @@ exports.Olives_view_one_Page = async function (req, res) {
       res.send(`{"error": Error deleting ${err}}`);
     }
   };
+
+  exports.Olives_create_Page =  function(req, res) { 
+    console.log("create view") 
+    try{ 
+        res.render('Olivescreate', { title: 'Olives Create'}); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+};
+
+// Handle building the view for updating a Olives. 
+// query provides the id 
+exports.Olives_update_Page =  async function(req, res) { 
+    console.log("update view for item "+req.query.id) 
+    try{ 
+        let result = await Olives.findById(req.query.id) 
+        console.log(result)
+        res.render('Olivesupdate', { title: 'Olives Update', toShow: result }); 
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
