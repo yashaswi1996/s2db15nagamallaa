@@ -90,8 +90,8 @@ failed`);
 // Handle a show all view
 exports.Olives_view_all_Page = async function (req, res) {
     try {
-        theOlivess = await Olives.find();
-        res.render('Olives', { title: 'Olives Search Results', results: theOlivess });
+        theOlives = await Olives.find();
+        res.render('Olives', { title: 'Olives Search Results', results: theOlives });
     }
     catch (err) {
         res.status(500);
