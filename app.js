@@ -99,7 +99,7 @@ passport.use(new LocalStrategy(
   app.use(passport.session());
 
 
-  var Account =require('./models/account'); 
+var Account =require('./models/account'); 
  
 passport.use(new LocalStrategy(Account.authenticate())); 
 passport.serializeUser(Account.serializeUser()); 

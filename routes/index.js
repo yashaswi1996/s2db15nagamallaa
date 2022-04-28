@@ -1,11 +1,3 @@
-var express = require('express');
-var router = express.Router();
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
 var express = require('express'); 
 var passport = require('passport'); 
 var router = express.Router(); 
@@ -44,25 +36,25 @@ router.post('/register', function(req, res) {
         res.redirect('/'); 
       }) 
     })    
-  })
+  }) 
   
 router.get('/login', function(req, res) { 
     res.render('login', { title: 'Olives App Login', user : req.user }); 
 }); 
  
 router.post('/login', passport.authenticate('local'), function(req, res) { 
-    if(req.session.returnTo) 
-      res.redirect(req.session.returnTo); 
+  if(req.session.returnTo) 
+  res.redirect(req.session.returnTo); 
     res.redirect('/'); 
 }); 
  
 router.get('/logout', function(req, res) { 
     req.logout(); 
-    res.redirect('/'); 
+    res.redirect('/');
 }); 
  
 router.get('/ping', function(req, res){ 
-    res.status(200).send("pong!"); 
+    res.status(200).send("pong!");  
 }); 
-
-module.exports = router;
+ 
+module.exports = router; 
